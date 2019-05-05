@@ -1,24 +1,39 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using dotnetNsr.PlayBall.GroupManagement.Business.Implementation.Services;
 using dotnetNsr.PlayBall.GroupManagement.Business.Services;
+using dotnetNsr.PlayBall.GroupManagement.Web.Demo.Filters;
+using dotnetNsr.PlayBall.GroupManagement.Web.IoC;
+using dotnetNsr.PlayBall.GroupManagement.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace dotnetNsr.PlayBall.GroupManagement.Web
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private readonly IConfiguration _config;
+        
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-            services.AddSingleton<IGroupsService, InMemoryGroupsService>();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<DemoActionFilter>();
+            });
+            
+            services.AddTransient<DemoExceptionFilter>();
+            services.AddBusiness();
         }
   
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -27,6 +42,8 @@ namespace dotnetNsr.PlayBall.GroupManagement.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseMiddleware<RequestTimingAdHoc>();
             
             app.Use(async (context, next) =>
             {

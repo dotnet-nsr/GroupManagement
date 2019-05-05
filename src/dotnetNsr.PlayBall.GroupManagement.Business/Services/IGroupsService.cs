@@ -1,16 +1,18 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using dotnetNsr.PlayBall.GroupManagement.Business.Models;
 
 namespace dotnetNsr.PlayBall.GroupManagement.Business.Services
 {
     public interface IGroupsService
     {
-        IReadOnlyCollection<Group> GetAll();
+        Task<IReadOnlyCollection<Group>> GetAll(CancellationToken cancellationToken);
 
-        Group GetById(long id);
+        Task<Group> GetById(long id, CancellationToken cancellationToken);
 
-        Group Update(Group group);
+        Task<Group> Update(Group group, CancellationToken cancellationToken);
 
-        Group Add(Group group);
+        Task<Group> Add(Group group, CancellationToken cancellationToken);
     }
 }

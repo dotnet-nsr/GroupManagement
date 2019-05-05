@@ -1,10 +1,15 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using dotnetNsr.PlayBall.GroupManagement.Business.Services;
+using dotnetNsr.PlayBall.GroupManagement.Web.Demo.Filters;
 using dotnetNsr.PlayBall.GroupManagement.Web.Mappings;
 using dotnetNsr.PlayBall.GroupManagement.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetNsr.PlayBall.GroupManagement.Web.Controller
 {
+    [ServiceFilter(typeof(DemoExceptionFilter))]
     [Route("groups")]
     public class GroupsController : Microsoft.AspNetCore.Mvc.Controller
     {
@@ -19,16 +24,17 @@ namespace dotnetNsr.PlayBall.GroupManagement.Web.Controller
          
         [HttpGet]
         [Route("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            return View(_groupsService.GetAll().ToViewModel());
+            var result =  await _groupsService.GetAll(cancellationToken);
+            return View(result.ToViewModel());
         }
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult Details(long id)
+        public async Task<IActionResult> Details(long id, CancellationToken cancellationToken)
         {
-            var group = _groupsService.GetById(id);
+            var group = await _groupsService.GetById(id, cancellationToken);
             
             if (group == null)
             {
@@ -41,9 +47,9 @@ namespace dotnetNsr.PlayBall.GroupManagement.Web.Controller
         [HttpPost]
         [Route("{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(long id, GroupViewModel model)
+        public async Task<IActionResult> Edit(long id, GroupViewModel model, CancellationToken cancellationToken)
         {
-            var group = _groupsService.Update(model.ToServiceModel());
+            var group = await _groupsService.Update(model.ToServiceModel(), cancellationToken);
 
             if (group == null)
             {
@@ -57,16 +63,16 @@ namespace dotnetNsr.PlayBall.GroupManagement.Web.Controller
 
         [HttpGet]
         [Route("create")]
-        public IActionResult Create()
+        public  IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult CreateGroup(GroupViewModel model)
+        public async Task<IActionResult> CreateGroup(GroupViewModel model, CancellationToken cancellationToken)
         {
-            _groupsService.Add(model.ToServiceModel());
+            await _groupsService.Add(model.ToServiceModel(), cancellationToken) ;
 
             return RedirectToAction("Index");
         }

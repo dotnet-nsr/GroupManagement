@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using dotnetNsr.PlayBall.GroupManagement.Business.Models;
 using dotnetNsr.PlayBall.GroupManagement.Business.Services;
 
@@ -8,21 +10,21 @@ namespace dotnetNsr.PlayBall.GroupManagement.Business.Implementation.Services
     public class InMemoryGroupsService : IGroupsService
     {
         private readonly List<Group> _groups = new List<Group>();
-        private int currentId = 0;
+        private int _currentId = 0;
         
-        public IReadOnlyCollection<Group> GetAll()
+        public Task<IReadOnlyCollection<Group>> GetAll(CancellationToken cancellationToken)
         {
-            return _groups.AsReadOnly();
+            return Task.FromResult<IReadOnlyCollection<Group>>(_groups.AsReadOnly());
         }
 
-        public Group GetById(long id)
+        public Task<Group> GetById(long id, CancellationToken cancellationToken)
         {
-            return _groups.SingleOrDefault(g => g.Id == id);
+            return Task.FromResult(_groups.SingleOrDefault(g => g.Id == id));
         }
 
-        public Group Update(Group group)
+        public Task<Group> Update(Group group, CancellationToken cancellationToken)
         {
-            var toUpdate = _groups.SingleOrDefault(g => g.Id == group.Id);
+            var toUpdate =  _groups.SingleOrDefault(g => g.Id == group.Id);
 
             if (toUpdate == null)
             {
@@ -30,15 +32,15 @@ namespace dotnetNsr.PlayBall.GroupManagement.Business.Implementation.Services
             }
 
             toUpdate.Name = group.Name;
-            return toUpdate;
+            return Task.FromResult(toUpdate);
         }
 
-        public Group Add(Group group)
+        public Task<Group> Add(Group group, CancellationToken cancellationToken)
         {
-            group.Id = ++currentId;
+            group.Id = ++_currentId;
             _groups.Add(group);
 
-            return group;
+            return Task.FromResult(group);
         }
     }
 }
