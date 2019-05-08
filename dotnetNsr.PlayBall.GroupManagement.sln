@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnetNsr.PlayBall.GroupMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnetNsr.PlayBall.GroupManagement.Business.Implementation", "src\dotnetNsr.PlayBall.GroupManagement.Business.Implementation\dotnetNsr.PlayBall.GroupManagement.Business.Implementation.csproj", "{3FC2B759-2E7B-4FE0-A342-B5F296B3700E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnetNsr.PlayBall.GroupManagement.Data", "src\dotnetNsr.PlayBall.GroupManagement.Data\dotnetNsr.PlayBall.GroupManagement.Data.csproj", "{4ED85913-E25F-4E0B-8831-D843A75B9E48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,10 +62,23 @@ Global
 		{3FC2B759-2E7B-4FE0-A342-B5F296B3700E}.Release|x64.Build.0 = Release|Any CPU
 		{3FC2B759-2E7B-4FE0-A342-B5F296B3700E}.Release|x86.ActiveCfg = Release|Any CPU
 		{3FC2B759-2E7B-4FE0-A342-B5F296B3700E}.Release|x86.Build.0 = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|x64.Build.0 = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Debug|x86.Build.0 = Debug|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|x64.ActiveCfg = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|x64.Build.0 = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|x86.ActiveCfg = Release|Any CPU
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{532B1538-C6BB-4919-803C-0D03D5F18882} = {F6FEB019-18B1-4E75-8CF7-F88E687CAAED}
 		{513C9D40-B354-4752-89B7-9B973BFC3052} = {F6FEB019-18B1-4E75-8CF7-F88E687CAAED}
 		{3FC2B759-2E7B-4FE0-A342-B5F296B3700E} = {F6FEB019-18B1-4E75-8CF7-F88E687CAAED}
+		{4ED85913-E25F-4E0B-8831-D843A75B9E48} = {F6FEB019-18B1-4E75-8CF7-F88E687CAAED}
 	EndGlobalSection
 EndGlobal

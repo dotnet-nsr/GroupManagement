@@ -4,11 +4,13 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using dotnetNsr.PlayBall.GroupManagement.Business.Implementation.Services;
 using dotnetNsr.PlayBall.GroupManagement.Business.Services;
+using dotnetNsr.PlayBall.GroupManagement.Data;
 using dotnetNsr.PlayBall.GroupManagement.Web.Demo.Filters;
 using dotnetNsr.PlayBall.GroupManagement.Web.IoC;
 using dotnetNsr.PlayBall.GroupManagement.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +34,11 @@ namespace dotnetNsr.PlayBall.GroupManagement.Web
             
             services.AddTransient<DemoExceptionFilter>();
             services.AddBusiness();
+
+            services.AddDbContext<GroupManagementDbContext>(options =>
+            {
+                options.UseNpgsql(_config.GetConnectionString("GroupManagementDbContext"));
+            });
         }
   
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\dotnetNsr.PlayBall.GroupManagement.Business\dotnetNsr.PlayBall.GroupManagement.Business.csproj" />
+      <ProjectReference Include="..\dotnetNsr.PlayBall.GroupManagement.Data\dotnetNsr.PlayBall.GroupManagement.Data.csproj" />
     </ItemGroup>
 
 </Project>
